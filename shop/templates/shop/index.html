@@ -41,6 +41,24 @@
     text-align: center;
 }
 
+{#    .carousel-control-next, .carousel-control-prev {#}
+{#        top: auto;#}
+{#        bottom: auto;#}
+{#    }#}
+
+    a.btn.btn-primary {
+    text-align: center;
+    display: block;
+    margin: auto;
+    background: #468d46;
+    font-weight: 600;
+    transition: background-color 0.5s;
+}
+
+   a.btn.btn-primary:hover {
+    background-color: black;
+}
+
 
 
 
@@ -49,48 +67,49 @@
 
 {% block body %}
     <div class="container">
-        <h1 class="mb-5 mt-4"> Computer Accessires</h1>
-        <div id="demo" class="carousel slide my-3" data-bs-ride="carousel">
-{#            <ul class="carousel-indicators">#}
-{#              <li data-bs-target="#demo" data-bs-slide-to="0" class="active"  ></li>#}
-{#            {% for i in range %}#}
-{#              <li data-bs-target="#demo" data-bs-slide-to="{{ i }}" ></li>#}
-{#            {% endfor %}#}
-{##}
-{#            </ul>#}
 
+       {% for j in category %}
+        <h1 class="mb-5 mt-4"> {{ j }}</h1>
+        <div id="demo{{forloop.counter }}" class="carousel slide my-3" data-bs-ride="carousel">
           <div class="carousel-inner">
                 <div class="carousel-item active">
-                  {% for i in product|slice:"0:" %}
+                  {% for i in product %}
+                      {% if  j == i.category %}
                 <div class="col-xs-3 col-sm-3 col-md-3">
                   <div class="card">
                     <img src='/media/{{ i.image }}' class="card-img-top" alt="...">
                     <div class="card-body">
-                      <h5 class="card-title">{{ i.product_name }}</h5>
+                      <h5 class="card-title">{{ i }}</h5>
                       <p class="card-text">{{ i.desc }}</p>
                       <a href="#" class="btn btn-primary">Add to Cart</a>
                     </div>
                   </div>
                 </div>
-                    {% if forloop.counter|divisibleby:4 and forloop.counter > 0  and not forloop.last %}
+
+                    {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
                     </div>  <div class="carousel-item">
-                    {% endif %} 
+
+                    {% endif %}
+                      {% endif %}
                   {% endfor %}
                 </div>
                 </div>
                 </div>
 
+{% endfor %}
 
-        <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+        <button class="carousel-control-prev" type="button" data-bs-target="#demo{{forloop.counter }}" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Previous</span>
   </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+  <button class="carousel-control-next" type="button" data-bs-target="#demo{{forloop.counter }}" data-bs-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Next</span>
   </button>
 
+     </div>
+
  {% endblock %}
 
-                </div>
+
 
